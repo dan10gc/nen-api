@@ -60,7 +60,9 @@ const createNewWorkout: RequestHandler<
   });
   try {
     const createdWorkout = await workoutService.createNewWorkout(newWorkout);
-    res.status(201).send({ status: "OK", data: createdWorkout });
+    res
+      .status(201)
+      .send({ status: "OK", data: { workoutId: createdWorkout._id } });
   } catch (error: unknown) {
     res
       // @ts-ignore
