@@ -1,4 +1,5 @@
 import { Document, Schema, model } from "mongoose";
+import { isCardio } from "../utils/validation";
 
 export interface Workout {
   name: string;
@@ -15,8 +16,6 @@ export interface WorkoutDocument extends Workout, Document {
   createdAt: string;
   updatedAt: string;
 }
-
-const isCardio = (type: string) => type === "running" || type === "walking";
 
 const workoutSchema = new Schema<Workout>(
   {

@@ -5,7 +5,6 @@ import bodyParser from "body-parser";
 import mongoose from "mongoose";
 // Routes
 import v1WorkoutRouter from "./v1/routes/workout.routes";
-// const v1WorkoutRouter = require("./v1/routes/workoutRoutes");
 const mongoString = process.env.DATABASE_URL;
 
 // @ts-ignore
