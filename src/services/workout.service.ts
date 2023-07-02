@@ -12,12 +12,13 @@
 
 // It's also a good practice to name the service methods the same as the controller methods so that you have a connection between those. Let's start off with just returning nothing.
 
-import { v4 as uuid } from "uuid";
 import Workout from "../database/Workout";
 import { CreateWorkoutBody } from "../types/shared";
+import { FilterQuery, Query } from "mongoose";
+import WorkoutModel, { WorkoutDocument } from "../models/workout.model";
 
-const getAllWorkouts = () => {
-  const allWorkouts = Workout.getAllWorkouts();
+const getAllWorkouts = async () => {
+  const allWorkouts = await WorkoutModel.find();
   return allWorkouts;
 };
 
@@ -26,19 +27,14 @@ const getOneWorkout = (workoutId: string) => {
   return workout;
 };
 
-const createNewWorkout = (newWorkout: CreateWorkoutBody) => {
-  const workoutToInsert = {
-    ...newWorkout,
-    id: uuid(),
-    createdAt: new Date().toLocaleString("en-US", { timeZone: "UTC" }),
-    updatedAt: new Date().toLocaleString("en-US", { timeZone: "UTC" }),
-  };
-  try {
-    const createdWorkout = Workout.createNewWorkout(workoutToInsert);
-    return createdWorkout;
-  } catch (error) {
-    throw error;
-  }
+/**
+ * @description Creates a new workout document in the database
+ * @param newWorkout
+ *
+ * @returns
+ */
+const createNewWorkout = async (newWorkout: WorkoutDocument) => {
+  return await WorkoutModel.create(newWorkout);
 };
 
 const updateOneWorkout = (workoutId: string, changes: CreateWorkoutBody) => {

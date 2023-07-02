@@ -5,3 +5,7 @@ npm-debug.log
 .nyc
 .DS_Store
 .env
+.env*
+.flaskenv*
+!.env.project
+!.env.vault

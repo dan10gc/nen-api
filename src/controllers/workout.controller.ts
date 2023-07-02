@@ -4,11 +4,13 @@ import { Request, RequestHandler, Response } from "express";
 // Let's create a method for each endpoint. Just sending a message back should be fine for now.
 
 // Inside our service methods we'll be handling our business logic like transforming data structures and communicating with our Database Layer.
-import workoutService from "../services/workoutService";
+import workoutService from "../services/workout.service";
 import { CreateWorkoutBody } from "../types/shared";
+import WorkoutModel from "../models/workout.model";
+import { hasMissingFields } from "./utils";
 
-const getAllWorkouts: RequestHandler = (req, res) => {
-  const allWorkouts = workoutService.getAllWorkouts();
+const getAllWorkouts: RequestHandler = async (req, res) => {
+  const allWorkouts = await workoutService.getAllWorkouts();
   res.send({ status: "OK", data: allWorkouts });
 };
 
@@ -32,35 +34,32 @@ const createNewWorkout: RequestHandler<
   unknown,
   CreateWorkoutBody,
   unknown
-> = (req, res) => {
+> = async (req, res) => {
   const { body } = req;
-  //    Clean up
-  if (
-    !body.name ||
-    !body.mode ||
-    !body.equipment ||
-    !body.exercises ||
-    !body.trainerTips
-  ) {
+
+  if (hasMissingFields(body)) {
     res.status(400).send({
       status: "FAILED",
       data: {
         error:
-          "One of the following keys is missing or is empty in request body: 'name', 'mode', 'equipment', 'exercises', 'trainerTips'",
+          "One of the following keys is missing or is empty in request body: 'name', 'mode', 'equipment', 'exercises', 'type', 'duration', 'distance', 'pace'",
       },
     });
     return;
   }
 
-  const newWorkout = {
+  const newWorkout = new WorkoutModel({
     name: body.name,
     mode: body.mode,
     equipment: body.equipment,
     exercises: body.exercises,
-    trainerTips: body.trainerTips,
-  };
+    duration: body.duration,
+    distance: body.distance,
+    pace: body.pace,
+    type: body.type,
+  });
   try {
-    const createdWorkout = workoutService.createNewWorkout(newWorkout);
+    const createdWorkout = await workoutService.createNewWorkout(newWorkout);
     res.status(201).send({ status: "OK", data: createdWorkout });
   } catch (error: unknown) {
     res
