@@ -119,3 +119,9 @@ describe("[Controller]: getAllWorkouts", () => {
     });
   });
 });
+
+describe("[Controller]: getOneWorkout", () => {
+  it.todo("should return 404 if workout is not found");
+  it.todo("should return workout if workout is found");
+  it.todo("should return 400 if workoutId is not a valid ObjectId");
+});
