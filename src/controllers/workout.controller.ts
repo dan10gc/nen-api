@@ -8,24 +8,56 @@ import workoutService from "../services/workout.service";
 import { CreateWorkoutBody } from "../types/shared";
 import WorkoutModel from "../models/workout.model";
 import { hasMissingFields } from "./utils";
+import { isValidObjectId } from "mongoose";
+import { GetOneWorkoutParams } from "./types";
 
 const getAllWorkouts: RequestHandler = async (req, res) => {
-  const allWorkouts = await workoutService.getAllWorkouts();
-  res.send({ status: "OK", data: allWorkouts });
+  try {
+    const allWorkouts = await workoutService.getAllWorkouts();
+    res.json({ status: "OK", data: allWorkouts });
+  } catch (error) {
+    res
+      // @ts-ignore
+      .status(error?.status || 500)
+      // @ts-ignore
+      .send({ status: "FAILED", data: { error: error?.message || error } });
+  }
 };
 
-interface GetOneWorkoutParams {
-  workoutId: string;
-}
-
-const getOneWorkout: RequestHandler<GetOneWorkoutParams> = (req, res) => {
+const getOneWorkout: RequestHandler<GetOneWorkoutParams> = async (req, res) => {
   const {
     params: { workoutId },
   } = req;
-  // TODO: Error handling
-  if (!workoutId) return;
-  const workout = workoutService.getOneWorkout(workoutId);
-  res.send({ status: "OK", data: workout });
+  if (!workoutId) {
+    res.status(400).send({
+      status: "FAILED",
+      data: { error: "Workout ID is missing in request params" },
+    });
+    return;
+  }
+
+  if (!isValidObjectId(workoutId)) {
+    return res.status(400).send({
+      status: "FAILED",
+      data: { error: "Invalid params" },
+    });
+  }
+  try {
+    const workout = await workoutService.getOneWorkout(workoutId);
+    if (!workout) {
+      return res.status(404).send({
+        status: "FAILED",
+        data: { error: "Workout not found" },
+      });
+    }
+    res.send({ status: "OK", data: workout });
+  } catch (error) {
+    res
+      // @ts-ignore
+      .status(error?.status || 500)
+      // @ts-ignore
+      .send({ status: "FAILED", data: { error: error?.message || error } });
+  }
 };
 
 // To improve the request validation you normally would use a third party package like express-validator.
