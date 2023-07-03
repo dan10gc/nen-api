@@ -14,7 +14,7 @@ import { GetOneWorkoutParams } from "./types";
 const getAllWorkouts: RequestHandler = async (req, res) => {
   try {
     const allWorkouts = await workoutService.getAllWorkouts();
-    res.json({ status: "OK", data: allWorkouts });
+    res.send({ status: "OK", data: allWorkouts });
   } catch (error) {
     res
       // @ts-ignore
