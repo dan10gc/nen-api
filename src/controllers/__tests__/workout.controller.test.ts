@@ -1,6 +1,6 @@
 import workoutController from "../workout.controller";
 import { Request } from "express";
-import workoutModel, { Workout } from "../../models/workout.model";
+import WorkoutModel, { Workout } from "../../models/workout.model";
 
 const mockBody: Workout = {
   name: "5x5 Stronglifts",
@@ -15,7 +15,7 @@ const mockBody: Workout = {
 
 describe("[Controller]: createNewWorkout", () => {
   // it should return workout id
-  it("should return workout id", async () => {
+  it("should return workout id for valid strength workout", async () => {
     // @ts-ignore
     const req: Request = {
       body: mockBody,
@@ -26,13 +26,32 @@ describe("[Controller]: createNewWorkout", () => {
     };
     // @ts-ignore
     await workoutController.createNewWorkout(req, res, jest.fn());
-    const workout = await workoutModel.findOne({ name: "5x5 Stronglifts" });
+    const workout = await WorkoutModel.findOne({ name: "5x5 Stronglifts" });
     expect(res.status).toHaveBeenCalledWith(201);
     expect(res.send).toHaveBeenCalledWith({
       status: "OK",
       data: { workoutId: workout?._id },
     });
   });
+
+  // it("should return workout id for valid cardio workout", async () => {
+  //   const req: Request = {
+  //     body: mockBody,
+  //   };
+  //   const res = {
+  //     status: jest.fn().mockReturnThis(),
+  //     send: jest.fn(),
+  //   };
+  //   // @ts-ignore
+  //   await workoutController.createNewWorkout(req, res, jest.fn());
+  //   const workout = await WorkoutModel.findOne({ name: "5x5 Stronglifts" });
+  //   expect(res.status).toHaveBeenCalledWith(201);
+  //   expect(res.send).toHaveBeenCalledWith({
+  //     status: "OK",
+  //     data: { workoutId: workout?._id },
+  //   });
+  // });
+
   // it should return 400 if request body is missing fields
   it("should return 400 if request body is missing fields", async () => {
     // @ts-ignore
@@ -76,4 +95,33 @@ describe("[Controller]: createNewWorkout", () => {
       },
     });
   });
+});
+
+describe("[Controller]: getAllWorkouts", () => {
+  // should return all workouts
+  it("should return all workouts with no version field", async () => {
+    // @ts-ignore
+    const req: Request = {
+      query: {},
+    };
+    const res = {
+      status: jest.fn().mockReturnThis(),
+      send: jest.fn(),
+    };
+
+    // @ts-ignore
+    await workoutController.getAllWorkouts(req, res, jest.fn());
+    const workouts = await WorkoutModel.find().select("-__v");
+    // expect(res.status).toHaveBeenCalledWith(200);
+    expect(res.send).toHaveBeenCalledWith({
+      status: "OK",
+      data: workouts,
+    });
+  });
+});
+
+describe("[Controller]: getOneWorkout", () => {
+  it.todo("should return 404 if workout is not found");
+  it.todo("should return workout if workout is found");
+  it.todo("should return 400 if workoutId is not a valid ObjectId");
 });

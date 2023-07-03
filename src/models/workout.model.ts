@@ -61,4 +61,6 @@ const workoutSchema = new Schema<Workout>(
   }
 );
 
+// workoutSchema.set("toJSON", { virtuals: true });
+
 export default model<WorkoutDocument>("Workout", workoutSchema);
