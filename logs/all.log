@@ -1,0 +1,29 @@
+2023-07-04 09:43:51.891 [32minfo[39m: [32m⚡️[server]: Server is running on PORT 3000[39m
+2023-07-04 09:44:49.758 [32minfo[39m: [32m⚡️[server]: Server is running on PORT 3000[39m
+2023-07-04 09:44:50.243 [32minfo[39m: [32mDatabase Connected[39m
+2023-07-04 09:46:18.588 [32minfo[39m: [32m⚡️[server]: Server is running on PORT 3000[39m
+2023-07-04 09:46:19.267 [32minfo[39m: [32mDatabase Connected[39m
+2023-07-04 09:46:24.608 [32minfo[39m: [32m⚡️[server]: Server is running on PORT 3000[39m
+2023-07-04 09:46:25.644 [32minfo[39m: [32mDatabase Connected[39m
+2023-07-04 09:46:32.752 [32minfo[39m: [32m⚡️[server]: Server is running on PORT 3000[39m
+2023-07-04 09:46:33.461 [32minfo[39m: [32mDatabase Connected[39m
+2023-07-04 09:46:48.752 [32minfo[39m: [32m⚡️[server]: Server is running on PORT 3000[39m
+2023-07-04 09:46:49.381 [32minfo[39m: [32mDatabase Connected[39m
+2023-07-04 09:47:07.599 [32minfo[39m: [32m⚡️[server]: Server is running on PORT 3000[39m
+2023-07-04 09:47:08.161 [32minfo[39m: [32mDatabase Connected[39m
+2023-07-04 09:47:22.203 [32minfo[39m: [32m⚡️[server]: Server is running on PORT 3000[39m
+2023-07-04 09:47:22.704 [32minfo[39m: [32mDatabase Connected[39m
+2023-07-04 09:47:41.778 [32minfo[39m: [32m⚡️[server]: Server is running on PORT 3000[39m
+2023-07-04 09:47:42.525 [32minfo[39m: [32mDatabase Connected[39m
+2023-07-04 09:47:55.577 [32minfo[39m: [32m⚡️[server]: Server is running on PORT 3000[39m
+2023-07-04 09:47:56.054 [32minfo[39m: [32mDatabase Connected[39m
+2023-07-04 09:48:02.812 [32minfo[39m: [32m⚡️[server]: Server is running on PORT 3000[39m
+2023-07-04 09:48:03.301 [32minfo[39m: [32mDatabase Connected[39m
+2023-07-04 09:48:51.476 [32minfo[39m: [32m⚡️[server]: Server is running on PORT 3000[39m
+2023-07-04 09:48:52.089 [32minfo[39m: [32mDatabase Connected[39m
+2023-07-04 09:49:00.550 [32minfo[39m: [32m⚡️[server]: Server is running on PORT 3000[39m
+2023-07-04 09:49:01.161 [32minfo[39m: [32mDatabase Connected[39m
+2023-07-04 09:49:08.662 [35mhttp[39m: [35mGET /api/v1/workouts/ 304 - - 64.239 ms[39m
+[35m[39m
+2023-07-04 09:49:26.704 [35mhttp[39m: [35mGET /api/v1/workouts/649e3dd9543f1efbcacf4b8c 200 201 - 45.590 ms[39m
+[35m[39m
